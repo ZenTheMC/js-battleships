@@ -1,0 +1,26 @@
+{
+  "name": "js-battleships",
+  "version": "1.0.0",
+  "description": "First project built with TDD",
+  "main": "ship.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZenTheMC/js-battleships.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ZenTheMC/js-battleships/issues"
+  },
+  "homepage": "https://github.com/ZenTheMC/js-battleships#readme",
+  "dependencies": {
+    "jest": "^29.5.0"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.20.2"
+  }
+}

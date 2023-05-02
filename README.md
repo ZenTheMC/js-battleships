@@ -62,8 +62,13 @@ Gameboard objects need to have X methods:
 - has to track whose turn it currently is (which gameboard is the "enemy" gameboard this turn)
 - win/lose end condition - once one player's ships are all sunk (aka when a whole `Gameboard` has no ships left)
 
-
 Part 2 => UI:
 
 - display both players' gameboards (using `Gameboard` class)
 - take user input for attacks (click on coordinate)
+
+TODO :
+
+- Work on fixing the pathing on .test file import statement so the tests pass
+- Get started on the .js file for either gameboard or gameloop
+- Use the TDD workflow while doing that^

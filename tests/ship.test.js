@@ -1,4 +1,4 @@
-import ship from "./ship";
+import ship from "./tests/ship";
 
 describe("Ship factory function properties tests", () => {
     const shipTest = ship("battleship");
@@ -9,7 +9,7 @@ describe("Ship factory function properties tests", () => {
         expect(shipTest.length).toBe(4);
     });
     test("direction", () => {
-        expect(shipTest.getDirection()).toBe("horizontal");
+        expect(shipTest.getDirection()).toBe("horizontal");  // TODO: Remove these tests if this functionality is removed from ship
     });
     test("change direction", () => {
         shipTest.changeDirection();
@@ -26,6 +26,11 @@ describe("Hit function tests", () => {
         shipTest.hit(2);
         expect(shipTest.getHits()).toEqual([null, null, "hit"]);
     });
+    test("invalid hit: can't hit same index twice", () => {  // TODO: Add a unit test for this validation
+        shipTest.hit(1);
+        shipTest.hit(1);  // should not be able to hit a sunk ship
+        // expect an error
+        });
 });
 
 describe("isSunk function tests", () => {

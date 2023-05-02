@@ -10,22 +10,23 @@ export const ship_lengths = {
 const ship = (type) => {
     const id = type;
     const length = ship_lengths[type];
-    let direction = "horizontal";
 
-    const getDirection = () => direction;
-    const changeDirection = () => {
+    let direction = "horizontal";  // TODO: remove this from ship
+
+    const getDirection = () => direction;  // TODO: Consider removing this from ship
+    const changeDirection = () => {  // TODO: 
         direction === "horizontal" ? (direction = "vertical") : (direction = "horizontal");
     };
 
     // hit
-    const hits = Array(length).fill(null);
-    const hit = (i) => (hits[i] = "hit");
-    const getHits = () => hits;
+    const hits = Array(length).fill(null);  // [null, null, null]  https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array
+    const hit = (i) => (hits[i] = "hit");  // hit(0) => ["hit", null, null] (this "accesses" `hits` to set a new value)
+    const getHits = () => hits;  // accesses and returns `hits`
 
     // isSunk
-    const isSunk = () => hits.every((h) => h === "hit");
+    const isSunk = () => hits.every((hit) => hit === "hit");  // ["hit", "hit", "hit"] => true; ["hit", null, "hit"] => false
     
-    return { id, length, hit, getHits, isSunk, getDirection, changeDirection };
+    return { id, length, hit, getHits, isSunk, getDirection, changeDirection }; // creates a new object with all of those properties from above
 };
 
 export default ship;

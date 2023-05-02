@@ -17,10 +17,8 @@
     "url": "https://github.com/ZenTheMC/js-battleships/issues"
   },
   "homepage": "https://github.com/ZenTheMC/js-battleships#readme",
-  "dependencies": {
-    "jest": "^29.5.0"
-  },
   "devDependencies": {
-    "@babel/preset-env": "^7.20.2"
+    "@babel/preset-env": "^7.20.2",
+    "jest": "^29.5.0"
   }
 }

@@ -1,4 +1,4 @@
-import ship from "./tests/ship";
+import ship from "../ship";
 
 describe("Ship factory function properties tests", () => {
     const shipTest = ship("battleship");

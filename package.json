@@ -4,7 +4,8 @@
   "description": "First project built with TDD",
   "main": "ship.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "watch": "jest --watch *.js"
   },
   "repository": {
     "type": "git",

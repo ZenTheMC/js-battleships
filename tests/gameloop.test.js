@@ -1,5 +1,8 @@
 import gameLoop from "../gameloop";
 
-describe("checking to see if gameloop exists", () => {
+describe("Gameloop Initialization", () => {
     const gameLoopTest = gameLoop();
+    test("Check to see if gameLoop exits", () => {
+        expect().toBe();
+    });
 });

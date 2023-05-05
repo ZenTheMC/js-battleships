@@ -67,3 +67,14 @@ Part 2 => UI:
 
 - display both players' gameboards (using `Gameboard` class)
 - take user input for attacks (click on coordinate)
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+TO-DO:
+On meeting with Ray on Friday:
+-Look at gameboard, gameboardtest, gameloop, gamelooptest, player, playertest
+-Look through the pseudo-code for the logic, and the syntax of the factory functions and modules and objects within
+-Look at the tests written in gameboard test "conceptually", then "syntactically", then actually talk through what is right about them and what is wrong
+-Then refactor all existing new code since our last meeting on Monday, or at least gameboard, and maybe get started on gameloop, so then player and UI are easier for me to get some pattern recognition on
+-Make sure to explain your thought process on your current new changes, and also read out the notes inside the .js files that could help elaborate on what you were going for when you initially wrote them
+-Remember to tell Ray that you DID NOT want to look up any "help" or similar projects, whether through ODIN classmates, or other unrelated Battleship projects, simply because you think you will learn wayyyyyyy more and wayyyyyyyy better if you come up with the solutions yourself, or at least working through the solution brainstorming process with Ray's guidance, because that is how you learned best with TDD basics, and with our previous 3-4 hour Monday session where I learned like 10 different big important things, one of which, I am currently utilizing right now!! Right here!!! And also have utilized on all my study sessions since, drastically improving my productivity.
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

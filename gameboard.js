@@ -1,15 +1,35 @@
 import ship from "./ship";
 
+// Factory function that is supposed to return a Gameboard object
 const gameBoard = () => {
-    // Factory function that is supposed to return a Gameboard object
+
+    const board = [];
+
+    const placeShip = (ship, coordinates) => { // ship placement (parameters: coordinates, ship) -> (ship on the board)
+        // ship placement logic
+    };
+
+    const receiveAttack = (coordinates) => { // receive attack (parameters: coordinates) and track gameboard current state(missed shots)
+        // receive attack logic
+    };
+    
+    const allShipsSunk = () => { // all ships sunk ? (Is this needed? Can I use the imported isSunk function from ship.js?) -Discuss!!!
+        // all ships sunk logic
+    };
+
     return {
+        placeShip,
+        receiveAttack,
+        allShipsSunk
+    };
+
+    /* Possible other things to add!
         coordinates: [], // (x,y) - stores guessed coordinates, therefore starts out empty
         populate: Array.from({length:50},()=> ({})), // Init to pre-populate with a size (50 is just a placeholder)
-        ship() {}, // the ship factory function
-        placeship(x,y) {}, // ship placement (parameters: x coord, y coord -> output: a ship, on the board)
-        receiveattack(x,y,state) {}, // `receiveAttack`: parameters: (x coord, y coord) and gameboard current state
+        ship() {}, // the ship factory function imported: to use stuff from that .js file, like isSunk, ship lengths for adding to board, etc.?
         guesscheck(x,y) {}, // check if (x, y) has already been guessed, if yes, the move is illegal (data validation on user input)
-    
+    */
+
     /* logic: determine if a ship object is at (x, y)
      - if a ship exists, call its `hit` method
      - if a ship doesn't exist, "record" the missed shot's (x, y) coordinates. (for the UI, to show the user what guesses they already made)
@@ -18,8 +38,6 @@ const gameBoard = () => {
      - whether there are any ships left (or everything is sunk)
      - enhancement: keep a history of moves so you can have an "undo" button
     */
-
-    };
 };
 
 export default gameBoard;

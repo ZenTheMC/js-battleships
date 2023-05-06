@@ -8,13 +8,6 @@ describe("Ship factory function properties tests", () => {
     test("length", () => {
         expect(shipTest.length).toBe(4);
     });
-    test("direction", () => {
-        expect(shipTest.getDirection()).toBe("horizontal");  // TODO: Remove these tests if this functionality is removed from ship
-    });
-    test("change direction", () => {
-        shipTest.changeDirection();
-        expect(shipTest.getDirection()).toBe("vertical");
-    });
 });
 
 describe("Hit function tests", () => {

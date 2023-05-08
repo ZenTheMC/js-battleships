@@ -21,9 +21,9 @@ describe("Hit function tests", () => {
     });
     test("invalid hit: can't hit same index twice", () => {  // TODO: Add a unit test for this validation
         shipTest.hit(1);
-        shipTest.hit(1);  // should not be able to hit a sunk ship
-        // expect an error
-        });
+        shipTest.hit(1); // should not be able to hit a repeat coordinate so expect an error!
+        expect(shipTest.getHits()).toEqual("Illegal move, can't guess the same coordinate again!");
+    });
 });
 
 describe("isSunk function tests", () => {

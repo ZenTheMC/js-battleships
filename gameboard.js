@@ -18,6 +18,7 @@ const gameBoard = () => {
     };
 
     return {
+        board,
         placeShip,
         receiveAttack,
         allShipsSunk

@@ -6,7 +6,13 @@ const gameBoard = () => {
     const board = [];
 
     const placeShip = (ship, coordinates) => { // ship placement (parameters: coordinates, ship) -> (ship on the board)
-        // ship placement logic
+        /*
+        Ship placement logic :
+        -Generate a random starting coord on board 
+        -Determine a random direction(hor/vert) to place ship 
+        -Check if the selected coord and direc are valid for placing ship : it has to fit within the board bounds and not overlap with other ships 
+        -If coords and direc are valid, mark cells on board when occupied by newly placed ship
+        */
     };
 
     const receiveAttack = (coordinates) => { // receive attack (parameters: coordinates) and track gameboard current state(missed shots)

@@ -1,10 +1,25 @@
-import gameBoard from "../gameboard"
+import gameBoard from "../gameboard";
 import ship from "../ship";
 
-describe("Game Board initialization", () => {
+describe("Game Board initialization", () => { // This test case is done, and is passing fine, hopefully for the right reasons :)
     const gameBoardTest = gameBoard();
     test("Check to see if gameBoard exits", () => {
         expect(gameBoardTest.board).toEqual([]);
+    });
+});
+
+describe("Place Ship Method", () => { // This test case is done, need to implement placeShip logic in gameboard.js file to have it pass
+    const gameBoardTest = gameBoard();
+    const shipTest = ship("cruiser");
+    const coordinates = { row: 3, column: 5};
+    const direction = "horizontal";
+
+    gameBoardTest.placeShip(ship, coordinates, direction);
+
+    test("Check to see if 'placeship' will output a ship on the board", () => {
+        expect(gameBoardTest.isShipOccupyingCell(3,5)).toBe(true);
+        expect(gameBoardTest.isShipOccupyingCell(3,6)).toBe(true);
+        expect(gameBoardTest.isShipOccupyingCell(3,7)).toBe(true);
     });
 });
 
@@ -19,14 +34,6 @@ describe("Populate Attribute/Method?", () => {
     const gameBoardTest = gameBoard();
     test("Check to see if 'populate' will initialize to pre-populate with a size", () => {
         expect().toBe([]);
-    });
-});
-
-describe("Place Ship Method", () => {
-    const gameBoardTest = gameBoard();
-    const shipTest = ship("battleship"); 
-    test("Check to see if 'placeship' will take x and y as parameters and output a ship on the board using them as coordinates to place it at", () => {
-        expect().toBe();
     });
 });
 

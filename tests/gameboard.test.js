@@ -14,7 +14,7 @@ describe("Place Ship Method", () => { // This test case is done, need to impleme
     const coordinates = { row: 3, column: 5};
     const direction = "horizontal";
 
-    gameBoardTest.placeShip(ship, coordinates, direction);
+    gameBoardTest.placeShip(shipTest, coordinates, direction);
 
     test("Check to see if 'placeship' will output a ship on the board", () => {
         expect(gameBoardTest.isShipOccupyingCell(3,5)).toBe(true);

@@ -1,14 +1,14 @@
 import gameBoard from "../gameboard";
 import ship from "../ship";
 
-describe("Game Board initialization", () => { // This test case is done, and is passing fine, hopefully for the right reasons :)
+describe("Game Board initialization", () => { // This test case is done, and is passing!
     const gameBoardTest = gameBoard();
     test("Check to see if gameBoard exits", () => {
         expect(gameBoardTest.board).toEqual([]);
     });
 });
 
-describe("Place Ship Method", () => { // This test case is done, need to implement placeShip logic in gameboard.js file to have it pass
+describe("Place Ship Method", () => { // This test case is done, and is passing!
     const gameBoardTest = gameBoard();
     const shipTest = ship("cruiser");
     const coordinates = { row: 3, column: 5};
@@ -21,9 +21,18 @@ describe("Place Ship Method", () => { // This test case is done, need to impleme
         expect(gameBoardTest.isShipOccupyingCell(3,6)).toBe(true);
         expect(gameBoardTest.isShipOccupyingCell(3,7)).toBe(true);
     });
+
+    test("placeShip should throw an error when placing ships in the same location", () => {
+        const ship1 = ship("submarine");
+        const ship2 = ship("destroyer");
+
+        gameBoardTest.placeShip(ship1, coordinates, direction);
+
+        expect(() => gameBoardTest.placeShip(ship2, coordinates, direction)).toThrow("Cannot place ship in the same location as another ship");
+    });
 });
 
-describe("Coordinate Attribute", () => {
+/* describe("Coordinate Attribute", () => {
     const gameBoardTest = gameBoard();
     test("Check to see if 'coordinates' will store guessed coordinates within an array", () => {
         expect().toBe();
@@ -50,3 +59,4 @@ describe("Guess Check Method", () => {
         expect().toBe();
     });
 });
+*/

@@ -5,14 +5,34 @@ const gameBoard = () => {
 
     const board = [];
 
-    const placeShip = (ship, coordinates) => { // ship placement (parameters: coordinates, ship) -> (ship on the board)
-        /*
-        Ship placement logic :
-        -Generate a random starting coord on board 
-        -Determine a random direction(hor/vert) to place ship 
-        -Check if the selected coord and direc are valid for placing ship : it has to fit within the board bounds and not overlap with other ships 
-        -If coords and direc are valid, mark cells on board when occupied by newly placed ship
-        */
+    // Function to place ships at specific coordinates
+    const placeShip = (ship, coordinates, direction) => {
+        const { row, column } = coordinates;
+        const shipCells = [];
+
+        // Determine the cells occupied by the ship based on direction and ship length
+        if (direction === "horizontal") {
+            for (let i = column; i < column + ship.length; i++) {
+                shipCells.push({ row, column: i});
+            };
+        } else if (direction === "vertical") {
+            for (let i = row; i < row + ship.length; i++) {
+                shipCells.push({ row: i, column });
+            };
+        };
+
+        // Check if any of the ship cells are already occupied by another ship
+        const overlappingShip = shipCells.find(cell => board[cell.row][cell.column] === "ship");
+        if (overlappingShip) {
+            throw new Error("Cannot place ship in the same location as another ship");            
+        };
+
+        // Mark the ship cells as occupied by the ship
+        shipCells.forEach(cell => {
+            board[cell.row][cell.column] = "ship";
+        });
+        
+        // Maybe need to return { placeShip }; ? but maybe not needed cause thats being done at the end of the gameBoard function
     };
 
     const receiveAttack = (coordinates) => { // receive attack (parameters: coordinates) and track gameboard current state(missed shots)

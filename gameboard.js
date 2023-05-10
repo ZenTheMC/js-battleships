@@ -1,4 +1,4 @@
-import ship from "./ship";
+import ship, { ship_lengths } from "./ship";
 
 // Factory function that is supposed to return a Gameboard object
 const gameBoard = () => {
@@ -35,12 +35,22 @@ const gameBoard = () => {
         // Maybe need to return { placeShip }; ? but maybe not needed cause thats being done at the end of the gameBoard function
     };
 
-    const receiveAttack = (coordinates) => { // receive attack (parameters: coordinates) and track gameboard current state(missed shots)
-        // receive attack logic
+    // Function to receive attacks and handle missed shots
+    const receiveAttack = (coordinates) => {
+        const { row, column } = coordinates;
+        const cell = board[row][column];
+
+        if (cell === "ship") {
+            const ship = getShipAtCoordinates(coordinates);
+            ship.hit();
+        } else if (cell === "empty") {
+            missedAttacks.push(coordinates);
+        };
     };
-    
-    const allShipsSunk = () => { // all ships sunk ? (Is this needed? Can I use the imported isSunk function from ship.js?) -Discuss!!!
-        // all ships sunk logic
+
+    // Function to determine if all ships have been sunk
+    const allShipsSunk = () => {
+        return ship_lengths.every(ship => ship.isSunk());
     };
 
     return {

@@ -9,17 +9,18 @@ describe("Game Board initialization", () => { // This test case is done, and is 
 });
 
 describe("Place Ship Method", () => { // This test case is done, and is passing!
-    const gameBoardTest = gameBoard();
-    const shipTest = ship("cruiser");
-    const coordinates = { row: 3, column: 5};
-    const direction = "horizontal";
-
-    gameBoardTest.placeShip(shipTest, coordinates, direction);
-
+    
     test("Check to see if 'placeship' will output a ship on the board", () => {
-        expect(gameBoardTest.isShipOccupyingCell(3,5)).toBe(true);
-        expect(gameBoardTest.isShipOccupyingCell(3,6)).toBe(true);
-        expect(gameBoardTest.isShipOccupyingCell(3,7)).toBe(true);
+        const gameBoardTest = gameBoard();
+        const shipTest = ship("cruiser");
+        const coordinates = { row: 3, column: 5 };
+        const direction = "horizontal";
+
+        gameBoardTest.placeShip(shipTest, coordinates, direction);
+
+        expect(gameBoardTest.overlappingShip(3,5)).toBe(true);
+        expect(gameBoardTest.overlappingShip(3,6)).toBe(true);
+        expect(gameBoardTest.overlappingShip(3,7)).toBe(true);
     });
 
     test("placeShip should throw an error when placing ships in the same location", () => {
@@ -32,31 +33,40 @@ describe("Place Ship Method", () => { // This test case is done, and is passing!
     });
 });
 
-/* describe("Coordinate Attribute", () => {
-    const gameBoardTest = gameBoard();
-    test("Check to see if 'coordinates' will store guessed coordinates within an array", () => {
-        expect().toBe();
+describe("Receive Attack Method", () => {
+    
+    test("Check to see if 'receiveAttack' correctly handles attacks and records missed shots", () => {
+        const gameBoardTest = gameBoard();
+        const shipTest = ship("cruiser");
+        const shipCoordinates = { row: 3, column: 5 };
+        const missedCoordinates = { row: 4, column: 4 };
+
+        gameBoardTest.placeShip(ship, shipCoordinates, "horizontal");
+        gameBoardTest.receiveAttack(shipCoordinates);
+        gameBoardTest.receiveAttack({ row: 3, column: 6 });
+        gameBoardTest.receiveAttack(missedCoordinates);
+
+        expect(shipTest.getHits).toBe(2);
+        expect(gameBoardTest.missedAttacks).toContainEqual(missedCoordinates);
     });
 });
 
-describe("Populate Attribute/Method?", () => {
-    const gameBoardTest = gameBoard();
+describe("All Ships Sunk Method", () => {
+
     test("Check to see if 'populate' will initialize to pre-populate with a size", () => {
-        expect().toBe([]);
-    });
-});
+        const gameBoardTest = gameBoard();
+        const ship1 = ship("destroyer");
+        const ship2 = ship("submarine");
 
-describe("Receive Attack Method", () => { 
-    const gameBoardTest = gameBoard();
-    test("Check to see if 'receiveattack' will take x and y as parameters and record them along with the current game state", () => {
-        expect().toBe();
-    });
-});
+        gameBoardTest.placeShip(ship1, { row: 0, column: 0 }, "horizontal");
+        gameBoardTest.placeShip(ship2, { row: 2, column: 1 }, "vertical");
+        
+        ship1.hit();
+        ship1.hit();
+        ship2.hit();
+        ship2.hit();
+        ship2.hit();
 
-describe("Guess Check Method", () => {
-    const gameBoardTest = gameBoard();
-    test("Check to see if 'guesscheck' will take x and y, then check if it was already guessed, if yes, the move is illegal, so data validation upon user input", () => {
-        expect().toBe();
+        expect(gameBoardTest.allShipsSunk()).toBe(true);
     });
 });
-*/

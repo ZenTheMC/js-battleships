@@ -24,6 +24,9 @@ describe("Place Ship Method", () => { // This test case is done, and is passing!
     });
 
     test("placeShip should throw an error when placing ships in the same location", () => {
+        const gameBoardTest = gameBoard();
+        const coordinates = { row: 3, column: 5 };
+        const direction = "horizontal";
         const ship1 = ship("submarine");
         const ship2 = ship("destroyer");
 

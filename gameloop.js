@@ -1,32 +1,29 @@
-/*
-`Game` module ("main game loop") :
--Create 2 players
--Create 2 `Gameboards` (one for each player)
-Method to set up a new game :
--Has to track whose turn it currently is (which gameboard is the "enemy" gameboard this turn) 2) Win/lose end condition once one player's ships are all sunk (aka when a whole `Gameboard` has no ships left)
-*/
+import gameBoard from "./gameboard";
+import createPlayer from "./player";
 
 // `Game` module ("main game loop")
-const gameLoop = (() => {
+const gameLoop = (player1, player2, render) => {
 
-    // Create 2 players
-    const player1 = Object.create(Player);
-    const player2 = Object.create(Player);
+    const gameboard1 = gameBoard();
+    const gameboard2 = gameBoard();
 
-    // Create 2 `Gameboards` (one for each player)
-    const gameBoard1 = createGameBoard();
-    const gameBoard2 = createGameBoard();
+    let currentPlayer = player1;
+    let gameOver = false;
 
-    // Populate boards with pre-determined coordinates logic
+    while (!gameOver) {
+        currentPlayer.randomAttack();
+        render();
 
-    // Render game boards using UI module logic
+        if (currentPlayer === player1) {
+            currentPlayer = player2;
+        } else {
+            currentPlayer = player1;
+        };
 
-    // Game loop logic
-    while (!gameBoard1.allShipsSunk() && !gameBoard2.allShipsSunk()) {
-        // Take turns attacking logic
+        if (player1.gameboard.allShipsSunk() || player2.gameboard.allShipsSunk()) {
+            gameOver = true;
+        };
     };
-
-    // End the game logic
-})();
+};
 
 export default gameLoop;

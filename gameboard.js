@@ -1,80 +1,70 @@
 import ship, { ship_lengths } from "./ship";
 
-// Factory function that is supposed to return a Gameboard object
-const gameBoard = () => {
+const createGameboard = () => {
+  const board = [];
+  const missedAttacks = [];
 
-    const board = [];
+  const placeShip = (ship, coordinates, direction) => {
+    const { row, column } = coordinates;
+    const shipCells = [];
 
-    // Function to place ships at specific coordinates
-    const placeShip = (ship, coordinates, direction) => {
-        const { row, column } = coordinates;
-        const shipCells = [];
+    if (direction === "horizontal") {
+      for (let i = column; i < column + ship.length; i++) {
+        shipCells.push({ row, column: i });
+      }
+    } else if (direction === "vertical") {
+      for (let i = row; i < row + ship.length; i++) {
+        shipCells.push({ row: i, column });
+      }
+    }
 
-        // Determine the cells occupied by the ship based on direction and ship length
-        if (direction === "horizontal") {
-            for (let i = column; i < column + ship.length; i++) {
-                shipCells.push({ row, column: i});
-            };
-        } else if (direction === "vertical") {
-            for (let i = row; i < row + ship.length; i++) {
-                shipCells.push({ row: i, column });
-            };
-        };
+    const overlappingShip = shipCells.find(
+      (cell) => board[cell.row][cell.column] === "ship"
+    );
+    if (overlappingShip) {
+      throw new Error("Cannot place ship in the same location as another ship");
+    }
 
-        // Check if any of the ship cells are already occupied by another ship
-        const overlappingShip = shipCells.find(cell => board[cell.row][cell.column] === "ship");
-        if (overlappingShip) {
-            throw new Error("Cannot place ship in the same location as another ship");            
-        };
+    shipCells.forEach((cell) => {
+      board[cell.row][cell.column] = "ship";
+    });
+  };
 
-        // Mark the ship cells as occupied by the ship
-        shipCells.forEach(cell => {
-            board[cell.row][cell.column] = "ship";
-        });
-        
-        // Maybe need to return { placeShip }; ? but maybe not needed cause thats being done at the end of the gameBoard function
-    };
+  const receiveAttack = (coordinates) => {
+    const { row, column } = coordinates;
+    const cell = board[row][column];
 
-    // Function to receive attacks and handle missed shots
-    const receiveAttack = (coordinates) => {
-        const { row, column } = coordinates;
-        const cell = board[row][column];
+    if (cell === "ship") {
+      const ship = getShipAtCoordinates(coordinates);
+      ship.hit();
+    } else if (cell === undefined) {
+      missedAttacks.push(coordinates);
+    }
+  };
 
-        if (cell === "ship") {
-            const ship = getShipAtCoordinates(coordinates);
-            ship.hit();
-        } else if (cell === "empty") {
-            missedAttacks.push(coordinates);
-        };
-    };
+  const allShipsSunk = () => {
+    return ships.every((ship) => ship.isSunk());
+  };
 
-    // Function to determine if all ships have been sunk
-    const allShipsSunk = () => {
-        return ship_lengths.every(ship => ship.isSunk());
-    };
+  const getShipAtCoordinates = (coordinates) => {
+    const { row, column } = coordinates;
+    const shipId = board[row][column];
+    const ship = ships.find((ship) => ship.id === shipId);
+    return ship;
+  };
 
-    return {
-        board,
-        placeShip,
-        receiveAttack,
-        allShipsSunk
-    };
+  // Create the initial game board
+  for (let i = 0; i < 10; i++) {
+    board.push(Array(10).fill(undefined));
+  }
 
-    /* Possible other things to add!
-        coordinates: [], // (x,y) - stores guessed coordinates, therefore starts out empty
-        populate: Array.from({length:50},()=> ({})), // Init to pre-populate with a size (50 is just a placeholder)
-        ship() {}, // the ship factory function imported: to use stuff from that .js file, like isSunk, ship lengths for adding to board, etc.?
-        guesscheck(x,y) {}, // check if (x, y) has already been guessed, if yes, the move is illegal (data validation on user input)
-    */
-
-    /* logic: determine if a ship object is at (x, y)
-     - if a ship exists, call its `hit` method
-     - if a ship doesn't exist, "record" the missed shot's (x, y) coordinates. (for the UI, to show the user what guesses they already made)
-     - tracking gameboard state: where are we going to "record" or store information about the current gameboard state?
-     - all missed attacks (maybe it's an array, maybe a lookup table...)
-     - whether there are any ships left (or everything is sunk)
-     - enhancement: keep a history of moves so you can have an "undo" button
-    */
+  return {
+    board,
+    missedAttacks,
+    placeShip,
+    receiveAttack,
+    allShipsSunk,
+  };
 };
 
-export default gameBoard;
+export default createGameboard;

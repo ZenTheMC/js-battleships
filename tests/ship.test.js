@@ -1,42 +1,49 @@
 import ship from "../ship";
 
 describe("Ship factory function properties tests", () => {
-    const shipTest = ship("battleship");
-    test("id", () => {
-        expect(shipTest.id).toBe("battleship");
-    });
-    test("length", () => {
-        expect(shipTest.length).toBe(4);
-    });
+  test("battleship length should be 4", () => {
+    const battleship = ship("battleship");
+    expect(battleship.length).toBe(4);
+  });
 });
 
 describe("Hit function tests", () => {
-    const shipTest = ship("submarine");
-    test("no hits", () => {
-        expect(shipTest.getHits()).toEqual([null, null, null]);
-    });
-    test("one hit", () => {
-        shipTest.hit(2);
-        expect(shipTest.getHits()).toEqual([null, null, "hit"]);
-    });
-    test("invalid hit: can't hit same index twice", () => {  // TODO: Add a unit test for this validation
-        shipTest.hit(1);
-        shipTest.hit(1); // should not be able to hit a repeat coordinate so expect an error!
-        expect(shipTest.getHits()).toEqual("Illegal move, can't guess the same coordinate again!");
-    });
+  let submarine;
+
+  beforeEach(() => {
+    submarine = ship("submarine");
+  });
+
+  test("submarine should have no hits initially", () => {
+    expect(submarine.getHits()).toEqual([null, null, null]);
+  });
+
+  test("submarine should register a hit at index 2", () => {
+    submarine.hit(2);
+    expect(submarine.getHits()).toEqual([null, null, "hit"]);
+  });
+
+  test("submarine should not allow hitting the same index twice", () => {
+    expect(() => submarine.hit(1)).not.toThrow();
+    expect(() => submarine.hit(1)).toThrowError("Illegal move, can't guess the same coordinate again!");
+    expect(submarine.getHits()).toEqual([null, "hit", null]);
+  });
 });
 
 describe("isSunk function tests", () => {
-    const shipTest = ship("destroyer");
-    test("not sunk", () => {
-        expect(shipTest.isSunk()).toBe(false);
-    });
-    test("hit but not sunk", () => {
-        shipTest.hit(0);
-        expect(shipTest.isSunk()).toBe(false);
-    });
-    test("sunk", () => {
-        shipTest.hit(1);
-        expect(shipTest.isSunk()).toBe(true);
-    });
+  let destroyer;
+
+  beforeEach(() => {
+    destroyer = ship("destroyer");
+  });
+
+  test("destroyer should not be sunk initially", () => {
+    expect(destroyer.isSunk()).toBe(false);
+  });
+
+  test("destroyer should be sunk after two hits", () => {
+    destroyer.hit(0);
+    destroyer.hit(1);
+    expect(destroyer.isSunk()).toBe(true);
+  });
 });

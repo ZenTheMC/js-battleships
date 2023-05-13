@@ -26,4 +26,4 @@ const ship = (type) => {
   return { id, length, hit, getHits, isSunk };
 };
   
-export default ship; 
+export default ship;

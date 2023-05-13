@@ -3,7 +3,7 @@ import { JSDOM } from "jsdom";
 import gameLoop from "../gameloop";
 import createPlayer from "../player";
 import gameBoard from "../gameboard";
-import { render } from "../interface";
+import { render, handleAttack, endGame } from "../interface";
 
 // Mock the DOM and create a new JSDOM instance
 const dom = new JSDOM("<!DOCTYPE html><html><body><div id='player-board'></div><div id='enemy-board'></div><button id='attack-button'></button><div id='message'></div></body></html>");

@@ -30,7 +30,7 @@ const createCellElement = (row, col, isPlayerBoard) => {
 };
 
 // Function to render the game boards
-const render = () => {
+const render = (player, enemy) => {
   playerBoard.innerHTML = "";
   enemyBoard.innerHTML = "";
 
@@ -46,7 +46,7 @@ const render = () => {
 };
 
 // Function to handle attack when clicking on enemy board cells
-const handleAttack = (row, col) => {
+const handleAttack = (player, enemy, row, col) => {
   if (!attackButton.disabled) {
     player.randomAttack();
     render();
@@ -58,26 +58,25 @@ const handleAttack = (row, col) => {
 };
 
 // Function to disable the attack button and display the final message
-const endGame = () => {
+const endGame = (playerGameboard, enemyGameboard) => {
   attackButton.disabled = true;
   const messageText = playerGameboard.allShipsSunk() ? "You won!" : "You lost!";
   message.textContent = messageText;
 };
 
 // Add event listener to the attack button
+cell.addEventListener("click", () => handleAttack(player, enemy, row, col));
+
 attackButton.addEventListener("click", () => {
   enemy.randomAttack();
-  render();
+  render(player, enemy);
 
   if (playerGameboard.allShipsSunk() || enemyGameboard.allShipsSunk()) {
-    endGame();
+    endGame(playerGameboard, enemyGameboard);
   }
 });
 
 // Initial rendering of the game boards
 render();
 
-// Start the game loop
-gameLoop(player, enemy, render);
-
-export default render;
+export { render, handleAttack, endGame };

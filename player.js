@@ -1,4 +1,4 @@
-import gameBoard from "./gameboard";
+import createGameBoard from "./gameboard";
 
 const createPlayer = (gameBoard) => {
   const randomAttack = () => {

@@ -30,6 +30,15 @@ const createGameboard = () => {
     });
   };
 
+  // Function to get the ship at given coordinates
+  const getShipAtCoordinates = (coordinates) => {
+    const { row, column } = coordinates;
+    const shipId = board[row][column];
+    const ship = Object.values(ships).find((ship) => ship.id === shipId);
+    return ship;
+  };
+
+  // Function to receive attacks and handle missed shots
   const receiveAttack = (coordinates) => {
     const { row, column } = coordinates;
     const cell = board[row][column];
@@ -37,20 +46,13 @@ const createGameboard = () => {
     if (cell === "ship") {
       const ship = getShipAtCoordinates(coordinates);
       ship.hit();
-    } else if (cell === undefined) {
+    } else if (cell === "empty") {
       missedAttacks.push(coordinates);
     }
   };
 
   const allShipsSunk = () => {
-    return ships.every((ship) => ship.isSunk());
-  };
-
-  const getShipAtCoordinates = (coordinates) => {
-    const { row, column } = coordinates;
-    const shipId = board[row][column];
-    const ship = ships.find((ship) => ship.id === shipId);
-    return ship;
+    return ships.every((ship) => ship.isSunk()); //
   };
 
   // Create the initial game board

@@ -1,9 +1,14 @@
-import gameBoard from "./gameboard";
+import createGameBoard from "./gameboard";
 import createPlayer from "./player";
 
 const gameLoop = (player1, player2, render) => {
-  const gameboard1 = gameBoard();
-  const gameboard2 = gameBoard();
+
+  // Create game boards and players
+  const playerGameboard = createGameBoard();
+  const enemyGameboard = createGameBoard();
+
+  const player = createPlayer(enemyGameboard);
+  const enemy = createPlayer(playerGameboard);
 
   let currentPlayer = player1;
   let gameOver = false;

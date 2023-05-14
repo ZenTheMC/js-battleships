@@ -1,4 +1,5 @@
 import createPlayer from "../player";
+import createGameBoard from "../gameboard"
 
 describe("Random Attack method", () => {
   test("Check if randomAttack calls gameBoard.receiveAttack with random coordinates", () => {

@@ -17,13 +17,14 @@ const enemy = createPlayer(playerGameboard);
 
 // Function to create a cell element
 const createCellElement = (row, col, isPlayerBoard) => {
-  const cell = document.createElement("div");
+  const playerCell = document.createElement("div");
+  const enemyCell = document.createElement("div");
   cell.classList.add("cell");
   cell.dataset.row = row;
   cell.dataset.col = col;
 
   if (!isPlayerBoard) {
-    cell.addEventListener("click", () => handleAttack(row, col));
+    enemyCell.addEventListener("click", () => handleAttack(player, enemy, row, col));
   }
 
   return cell;

@@ -60,20 +60,18 @@ describe("Receive Attack Method", () => {
   });
 });
 
-describe("All Ships Sunk Method", () => {
-  test("Check if all ships are correctly identified as sunk", () => {
-    const gameboard = createGameboard();
-    const ship1 = ship("destroyer");
-    const ship2 = ship("submarine");
-    gameboard.placeShip(ship1, { row: 0, column: 0 }, "horizontal");
-    gameboard.placeShip(ship2, { row: 2, column: 1 }, "vertical");
+test("Check if all ships are correctly identified as sunk", () => {
+  const gameboard = createGameboard();
+  const ship1 = ship("destroyer");
+  const ship2 = ship("submarine");
+  gameboard.placeShip(ship1, { row: 0, column: 0 }, "horizontal");
+  gameboard.placeShip(ship2, { row: 2, column: 1 }, "vertical");
 
-    ship1.hit();
-    ship1.hit();
-    ship2.hit();
-    ship2.hit();
-    ship2.hit();
+  gameboard.receiveAttack({ row: 0, column: 0 });
+  gameboard.receiveAttack({ row: 0, column: 1 });
+  gameboard.receiveAttack({ row: 2, column: 1 });
+  gameboard.receiveAttack({ row: 3, column: 1 });
+  gameboard.receiveAttack({ row: 4, column: 1 });
 
-    expect(gameboard.allShipsSunk()).toBe(true);
-  });
+  expect(gameboard.allShipsSunk()).toBeTruthy();
 });

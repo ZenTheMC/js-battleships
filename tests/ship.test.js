@@ -24,9 +24,10 @@ describe("Hit function tests", () => {
   });
 
   test("invalid hit: can't hit same index twice", () => {
-    shipTest.hit(1);
-    expect(() => shipTest.hit(1)).toThrow("Illegal move, can't guess the same coordinate again!");
-    expect(shipTest.getHits()).toEqual([null, null, "hit"]);
+    const submarine = ship("submarine");
+    submarine.hit(1);
+    expect(() => submarine.hit(1)).toThrow("Illegal move, can't guess the same coordinate again!");
+    expect(submarine.getHits()).toEqual([null, "hit", null]);
   });
 });
 

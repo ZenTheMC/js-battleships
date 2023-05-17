@@ -2,10 +2,7 @@ import createGameBoard from "./gameboard";
 
 const createPlayer = (gameBoard) => {
   const randomAttack = () => {
-    let { row, column } = getRandomCoordinates();
-    while (gameBoard.getAttackStatus({ row, column })) {
-      ({ row, column } = getRandomCoordinates());
-    }
+    const { row, column } = getRandomCoordinates();
     gameBoard.receiveAttack({ row, column });
   };
 
@@ -16,9 +13,10 @@ const createPlayer = (gameBoard) => {
   };
 
   return {
+    gameboard: gameBoard, // Add the gameboard property
     randomAttack,
-    gameboard: gameBoard
   };
 };
+
 
 export default createPlayer;

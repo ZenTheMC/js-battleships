@@ -9,9 +9,13 @@ const createGameboard = () => {
     destroyer: ship("destroyer", 2),
   };
   
-  const getAttackStatus = ({ row, column }) => {
-    return board[row][column]?.attacked;
-  };  
+  const getAttackStatus = (coordinates) => {
+    const { row, column } = coordinates;
+    const cell = board[row][column];
+  
+    return cell !== "empty" && cell !== "miss";
+  };
+  
   
   const board = [];
   const missedAttacks = [];
@@ -20,6 +24,7 @@ const createGameboard = () => {
     const { row, column } = coordinates;
     const shipCells = [];
   
+    // Determine the cells occupied by the ship based on direction and ship length
     if (direction === "horizontal") {
       for (let i = column; i < column + ship.length; i++) {
         shipCells.push({ row, column: i });
@@ -30,6 +35,7 @@ const createGameboard = () => {
       }
     }
   
+    // Check if any of the ship cells are already occupied by another ship
     const overlappingShip = shipCells.find(
       (cell) => board[cell.row][cell.column] === "ship"
     );
@@ -37,11 +43,10 @@ const createGameboard = () => {
       throw new Error("Cannot place ship in the same location as another ship");
     }
   
+    // Mark the ship cells as occupied by the ship
     shipCells.forEach((cell) => {
-      board[cell.row][cell.column] = ship.id;
+      board[cell.row][cell.column] = "ship";
     });
-  
-    ships[ship.id] = { ...ship, cells: shipCells }; // Store ship cells along with the ship object
   };
 
   // Function to receive attacks and handle missed shots
@@ -63,12 +68,17 @@ const createGameboard = () => {
   const getShipAtCoordinates = (coordinates) => {
     const { row, column } = coordinates;
     const shipId = board[row][column];
-    return shipId;
+    if (!shipId) return null;
+  
+    const ship = ships.find((ship) => ship.id === shipId);
+    return ship;
   };
   
-  const allShipsSunk = () => {
-    return Object.values(ships).every((ship) => ship.isSunk());
+  
+  const allShipsSunk = (ships) => {
+    return ships.every((ship) => ship.isSunk());
   };
+  
 
   // Create the initial game board
   for (let i = 0; i < 10; i++) {

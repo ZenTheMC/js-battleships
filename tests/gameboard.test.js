@@ -33,16 +33,18 @@ describe("Place Ship Method", () => {
   });
 
   test("Check if placing ships in the same location throws an error", () => {
-    const gameboard = createGameboard();
-    const ship1 = ship("submarine");
-    const ship2 = ship("destroyer");
-    const coordinates = { row: 3, column: 5 };
+    const gameboard = gameBoard();
+    const ship1 = { length: 3 };
+    const ship2 = { length: 4 };
+    const coordinates = { row: 2, column: 3 };
     const direction = "horizontal";
+  
     gameboard.placeShip(ship1, coordinates, direction);
-
-    expect(() => gameboard.placeShip(ship2, coordinates, direction)).toThrow("Cannot place ship in the same location as another ship");
+  
+    expect(() =>
+      gameboard.placeShip(ship2, coordinates, direction)
+    ).toThrow("Cannot place ship in the same location as another ship");
   });
-});
 
 describe("Receive Attack Method", () => {
   test("Check if attack is correctly received and registered", () => {
